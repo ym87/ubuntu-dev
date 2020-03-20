@@ -1,0 +1,11 @@
+numpy
+pandas
+sklearn
+gensim
+mecab-python3
+Django
+beautifulsoup4
+matplotlib
+psycopg2
+
+#slackbot

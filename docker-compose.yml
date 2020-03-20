@@ -1,0 +1,49 @@
+version: '3.5'
+services:   
+  contena_01:
+    build: ./ubuntu
+    container_name: ubuntu18.04_Remodeling
+    ports:
+      - "5009:5009"
+    networks:
+      - web  
+
+  postgres:
+    container_name: postgres_container
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-admin}
+      PGDATA: /data/postgres
+      #POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --locale=ja_JP.UTF-8"
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "${PGADMIN_PORT:-5432}:5432"
+      #- "5432:5432"
+    networks:
+      - web
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+    volumes:
+      - pgadmin:/root/.pgadmin
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    networks:
+      - web
+    restart: unless-stopped
+
+networks:
+  web:
+    driver: bridge
+    
+volumes:
+    ubuntu18.04_Remodeling:
+    postgres:
+    pgadmin:
