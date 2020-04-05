@@ -10,7 +10,6 @@ from .models import Post
 class PostIndex(generic.ListView):
     model = Post
 
-
 class PostImport(generic.FormView):
     template_name = 'app/import.html'
     success_url = reverse_lazy('app:index')
@@ -19,7 +18,6 @@ class PostImport(generic.FormView):
     def form_valid(self, form):
         form.save()
         return redirect('app:index')
-
 
 def post_export(request):
     response = HttpResponse(content_type='text/csv')

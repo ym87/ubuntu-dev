@@ -1,12 +1,29 @@
 version: '3.5'
-services:   
+services:
+  
   contena_01:
     build: ./ubuntu
     container_name: ubuntu18.04_Remodeling
     ports:
-      - "5009:5009"
+      - "5001:5001"
     networks:
-      - web  
+      - web
+    volumes:
+      - ./static:/static
+    command: uwsgi --socket :5001 --module testsite.wsgi --py-autoreload 1 --logto /tmp/mylog.log  
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "8000:8000"
+    networks:
+      - web
+    volumes:    
+      - ./nginx/conf:/etc/nginx/conf.d
+      - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params
+      - ./static:/static
+    depends_on:
+      - contena_01
 
   postgres:
     container_name: postgres_container
@@ -14,8 +31,7 @@ services:
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-admin}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-admin}
-      PGDATA: /data/postgres
-      #POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --locale=ja_JP.UTF-8"
+      PGDATA: /data/postgres      
     volumes:
       - postgres:/data/postgres
     ports:
@@ -38,6 +54,7 @@ services:
     networks:
       - web
     restart: unless-stopped
+
 
 networks:
   web:

@@ -7,5 +7,5 @@ Django
 beautifulsoup4
 matplotlib
 psycopg2
-
+uwsgi
 #slackbot

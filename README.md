@@ -35,3 +35,7 @@ This Compose file contains the following environment variables:
 * **Port** `5432`
 * **Username** as `POSTGRES_USER`, by default: `admin`
 * **Password** as `POSTGRES_PASSWORD`, by default `admin`
+
+
+## python manage.py makemigrations
+## python manage.py migrate
