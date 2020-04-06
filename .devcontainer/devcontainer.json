@@ -25,7 +25,15 @@
 	},
 
 	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": []
+	"extensions": [
+		"donjayamanne.python-extension-pack",
+		"kevinrose.vsc-python-indent",
+		"kiteco.kite",
+		"ms-ceintl.vscode-language-pack-ja",
+		"magicstack.magicpython",
+		"visualstudioexptteam.vscodeintellicode",
+		"wholroyd.jinja"
+	]
 
 	// Uncomment the next line if you want start specific services in your Docker Compose config.
 	// "runServices": [],
