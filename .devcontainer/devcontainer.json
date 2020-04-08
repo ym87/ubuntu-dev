@@ -32,7 +32,8 @@
 		"ms-ceintl.vscode-language-pack-ja",
 		"magicstack.magicpython",
 		"visualstudioexptteam.vscodeintellicode",
-		"wholroyd.jinja"
+		"wholroyd.jinja",
+		"grapecity.gc-excelviewer"
 	]
 
 	// Uncomment the next line if you want start specific services in your Docker Compose config.

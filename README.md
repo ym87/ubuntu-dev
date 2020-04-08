@@ -37,5 +37,11 @@ This Compose file contains the following environment variables:
 * **Password** as `POSTGRES_PASSWORD`, by default `admin`
 
 
+
+
 ## python manage.py makemigrations
 ## python manage.py migrate
+
+
+# docker-compose up -d
+# http://localhost:8000/

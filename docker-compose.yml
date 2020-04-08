@@ -1,6 +1,6 @@
 version: '3.5'
 services:
-  
+
   contena_01:
     build: ./ubuntu
     container_name: ubuntu18.04_Remodeling
@@ -9,21 +9,23 @@ services:
     networks:
       - web
     volumes:
+      - ./src:/code
       - ./static:/static
-    command: uwsgi --socket :5001 --module testsite.wsgi --py-autoreload 1 --logto /tmp/mylog.log  
+    command: uwsgi --socket :5001 --module project.wsgi --py-autoreload 1 --logto /tmp/mylog.log  
 
   nginx:
-    build: ./nginx
+    image: nginx
+    container_name: nginx
     ports:
       - "8000:8000"
-    networks:
-      - web
     volumes:    
       - ./nginx/conf:/etc/nginx/conf.d
       - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params
       - ./static:/static
     depends_on:
       - contena_01
+    networks:
+      - web   
 
   postgres:
     container_name: postgres_container
@@ -36,7 +38,6 @@ services:
       - postgres:/data/postgres
     ports:
       - "${PGADMIN_PORT:-5432}:5432"
-      #- "5432:5432"
     networks:
       - web
     restart: unless-stopped

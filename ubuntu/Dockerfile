@@ -71,12 +71,19 @@ RUN git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git\
     && bin/install-mecab-ipadic-neologd -n -y
 
 RUN apt-get install -y libpq-dev
-COPY requirements_base.txt /tmp/
-RUN pip install --requirement /tmp/requirements_base.txt
 
 #vscodeデバッグエラー対策
 RUN sudo apt-get -y install locales dialog \
     && localedef -f UTF-8 -i ja_JP ja_JP
+
+#COPY requirements_base.txt /tmp/
+#RUN pip install --requirement /tmp/requirements_base.txt
+
+RUN mkdir /code
+WORKDIR /code
+ADD requirements_base.txt /code/
+RUN pip install -r requirements_base.txt
+ADD . /code/
 
 #RUN LC_ALL=C
 #COPY . /tmp/
