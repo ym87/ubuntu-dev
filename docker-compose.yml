@@ -3,32 +3,16 @@ services:
 
   contena_01:
     build: ./ubuntu
-    container_name: ubuntu18.04_Remodeling
+    container_name: ubuntu18.04_dev
     ports:
       - "5001:5001"
     networks:
       - web
-    volumes:
-      - ./src:/code
-      - ./static:/static
-    command: uwsgi --socket :5001 --module project.wsgi --py-autoreload 1 --logto /tmp/mylog.log  
+    
 
-  nginx:
-    image: nginx
-    container_name: nginx
-    ports:
-      - "8000:8000"
-    volumes:    
-      - ./nginx/conf:/etc/nginx/conf.d
-      - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params
-      - ./static:/static
-    depends_on:
-      - contena_01
-    networks:
-      - web   
 
   postgres:
-    container_name: postgres_container
+    container_name: postgres_container_dev
     image: postgres
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-admin}
@@ -43,7 +27,7 @@ services:
     restart: unless-stopped
 
   pgadmin:
-    container_name: pgadmin_container
+    container_name: pgadmin_container_dev
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin}

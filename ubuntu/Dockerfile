@@ -85,5 +85,6 @@ ADD requirements_base.txt /code/
 RUN pip install -r requirements_base.txt
 ADD . /code/
 
+RUN wget -q -O – https://linux.kite.com/dls/linux/current
 #RUN LC_ALL=C
 #COPY . /tmp/
